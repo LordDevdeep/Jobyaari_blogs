@@ -26,4 +26,4 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction \
 
 EXPOSE 80
 
-CMD ["sh", "-c", "php artisan migrate --force && php artisan db:seed --force || true; php artisan config:cache && php artisan route:cache && php artisan view:cache; apache2-foreground"]
+CMD ["sh", "-c", "php artisan migrate:fresh --force --seed; php artisan config:cache && php artisan route:cache && php artisan view:cache; apache2-foreground"]
