@@ -15,6 +15,11 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'admin.auth' => AdminAuth::class,
         ]);
+
+        // Render terminates HTTPS at its load balancer and proxies HTTP
+        // to the container. Trust the X-Forwarded-* headers it sets so
+        // that secure-cookie + CSRF flow works correctly.
+        $middleware->trustProxies(at: '*');
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
